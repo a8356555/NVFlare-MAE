@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+
+  "DATASET_ROOT": "",
+
+  "executors": [
+    {
+      "tasks": ["train", "submit_model"],
+      "executor": {
+        "path": "trainers.custom_trainer.CustomTrainer",
+        "args": {          
+          "dataset_root": "{DATASET_ROOT}",          
+          "aggregation_epochs": 1,
+          "args": "seed=666 batch_size=50 anno_path=label.xlsx lr=0.01 heterogeneous=False device=cuda:0"
+        }
+      }
+    },
+    {
+      "tasks": ["validate"],
+      "executor": {
+        "path": "validators.custom_validator.CustomValidator",
+        "args": {
+          "dataset_root": "{DATASET_ROOT}",
+          "args": "seed=666 batch_size=50 anno_path=label.xlsx lr=0.01 heterogeneous=False device=cuda:0"
+        }
+      }
+    }
+  ],
+  "task_result_filters": [
+  ],
+  "task_data_filters": [
+  ],
+  "components": [
+  ]
+}
